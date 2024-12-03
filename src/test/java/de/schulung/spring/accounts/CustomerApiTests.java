@@ -33,4 +33,19 @@ class CustomerApiTests {
       .andExpect(content().string(endsWith("]")));
   }
 
+  @Test
+  void testGETCustomersWithAcceptTextHTML() throws Exception {
+    mockMvc.perform(
+        get("/customers")
+          .accept(MediaType.TEXT_HTML))
+      .andExpect(status().is(406));
+  }
+
+  @Test
+  void testGETCustomersWithParameter() throws Exception {
+    mockMvc.perform(
+        get("/customers?state=blubb")
+          .accept(MediaType.APPLICATION_JSON))
+      .andExpect(status().is(400));
+  }
 }
